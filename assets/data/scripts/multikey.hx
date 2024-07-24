@@ -104,7 +104,10 @@ function onPreGenerateStrums(event)
     //event.amount = keyCount;
 	event.cancel();
 	for(p in 0...strumLines.members.length)
+	{
+		strumLines.members[p].extra.set('keyCount', strumLineKeyCounts[p]);
 		strumLines.members[p].generateStrums(strumLineKeyCounts[p]);
+	}
 
 
 	scripts.event("onPostGenerateStrums", event);
@@ -544,6 +547,7 @@ function changeKeyCount(kc, doAnim, strumlineID)
     
     changingMania = true;
     playFadeIn = doAnim;
+	strumLines.members[strumlineID].extra.set('keyCount', strumLineKeyCounts[strumlineID]);
 	strumLines.members[strumlineID].generateStrums(strumLineKeyCounts[strumlineID]);
 	scripts.call("onPostManiaChange", [strumlineID]);
 }
